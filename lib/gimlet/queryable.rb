@@ -35,7 +35,7 @@ module Gimlet
         hash.each do |attribute, value|
           case value
           when Array
-            @where.push([attribute, :in?, value])
+            @where.push([attribute, :in?, value]) # should be :== ?
           when Regexp
             @where.push([attribute, :=~, value])
           else
