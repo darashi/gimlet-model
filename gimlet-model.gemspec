@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Gimlet::Model::VERSION
   spec.authors       = ["Yoji SHIDARA"]
   spec.email         = ["dara@shidara.net"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Gimlet: Document-oriented, Text-based and Read-only data storage, acts as Model}
+  spec.summary       = %q{Gimlet: Document-oriented, Text-based and Read-only data storage, acts as Model}
+  spec.homepage      = "https://github.com/darashi/gimlet-model"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+
+  spec.add_dependency "gimlet", "~> 0.0.2"
 end
