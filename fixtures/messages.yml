@@ -1,0 +1,5 @@
+---
+- id: 1
+  body: Hello world!
+- id: 2
+  name: こんにちは世界!

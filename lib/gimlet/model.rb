@@ -19,8 +19,17 @@ module Gimlet
 
       def source(source)
         @instances = {}
-        source.each do |id, data|
-          @instances[id] = self.new(data)
+        source.each do |item|
+          id = data = nil
+          case item
+          when Array
+            id, data = item
+          when Hash
+            data = item
+            id = data['id']
+          end
+
+          @instances[id.to_s] = self.new(data)
         end
       end
 
