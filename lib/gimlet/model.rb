@@ -6,6 +6,8 @@ module Gimlet
   module Model
     extend Forwardable
 
+    class IdMissing < StandardError; end
+
     def self.included(base)
       base.extend ClassMethods
     end
@@ -27,6 +29,10 @@ module Gimlet
           when Hash
             data = item
             id = data['id']
+          end
+
+          unless id
+            raise IdMissing, 'Missing id property for %s' % [data.inspect]
           end
 
           @instances[id.to_s] = self.new(data)

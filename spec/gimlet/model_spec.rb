@@ -97,4 +97,15 @@ describe Gimlet::Model do
       expect(subject.id).to eq(1)
     end
   end
+
+  describe 'when source has no id property' do
+    it do
+      expect(->{
+        Class.new {
+          include Gimlet::Model
+          source Gimlet::DataStore.new(fixture_path('missing_id.yml'))
+        }
+      }).to raise_error(Gimlet::Model::IdMissing)
+    end
+  end
 end
