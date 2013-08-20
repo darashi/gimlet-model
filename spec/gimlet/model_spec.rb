@@ -8,6 +8,11 @@ class TestModel
   scope :odd,  -> { where(odd:  true) }
 end
 
+class TestMessage
+  include Gimlet::Model
+  source Gimlet::DataStore.new(fixture_path('messages.yml'))
+end
+
 describe Gimlet::Model do
   describe '.find' do
     subject { TestModel.find(1) }
@@ -82,6 +87,25 @@ describe Gimlet::Model do
 
     it do
       expect(subject.all).to eq([])
+    end
+  end
+
+  describe 'when source given as array' do
+    subject { TestMessage.first }
+
+    it do
+      expect(subject.id).to eq(1)
+    end
+  end
+
+  describe 'when source has no id property' do
+    it do
+      expect(->{
+        Class.new {
+          include Gimlet::Model
+          source Gimlet::DataStore.new(fixture_path('missing_id.yml'))
+        }
+      }).to raise_error(Gimlet::Model::IdMissing)
     end
   end
 end

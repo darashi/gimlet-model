@@ -6,6 +6,8 @@ module Gimlet
   module Model
     extend Forwardable
 
+    class IdMissing < StandardError; end
+
     def self.included(base)
       base.extend ClassMethods
     end
@@ -19,8 +21,21 @@ module Gimlet
 
       def source(source)
         @instances = {}
-        source.each do |id, data|
-          @instances[id] = self.new(data)
+        source.each do |item|
+          id = data = nil
+          case item
+          when Array
+            id, data = item
+          when Hash
+            data = item
+            id = data['id']
+          end
+
+          unless id
+            raise IdMissing, 'Missing id property for %s' % [data.inspect]
+          end
+
+          @instances[id.to_s] = self.new(data)
         end
       end
 
